@@ -1,96 +1,72 @@
-const wrapper = document.createElement('div');
-wrapper.className = 'wrapper';
-wrapper.innerHTML = '<input class="textarea"> <div class="keyBoard"></div>';
-document.body.prepend(wrapper);
-
-const keyRow1 = [
-  ['Backquote', 'ё', 'Ё', '`', '~'],
-  ['Digit1', '1', '!', '1', '!'],
-  ['Digit2', '2', '"', '2', '@'],
-  ['Digit3', '3', '№', '3', '#'],
-  ['Digit4', '4', ';', '4', '$'],
-  ['Digit5', '5', '%', '5', '%'],
-  ['Digit6', '6', ':', '6', '^'],
-  ['Digit7', '7', '?', '7', '&'],
-  ['Digit8', '8', '', '8', ''],
-  ['Digit9', '9', '(', '9', '('],
-  ['Digit0', '0', ')', '0', ')'],
-  ['Digit-', '-', '', '-', ''],
-  ['Equal=', '=', '+', '=', '+'],
-  ['Backspace', 'Backspace', 'Backspace', 'Backspace', 'Backspace'],
+let ruKeyBoardDown = [
+  ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
+  ["Tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "&#92;"],
+  ["CapsLock", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "Enter"],
+  ["Shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "&#8593;", "Shift"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "&#8592;", "&#8595;", "&#8594;", "Ctrl"],
 ];
-
-const keyRow2 = [
-  ['Tab', 'Tab', 'Tab', 'Tab', 'Tab'],
-  ['KeyQ', 'й', 'Й', 'q', 'Q'],
-  ['KeyW', 'ц', 'Ц', 'w', 'W'],
-  ['KeyE', 'у', 'У', 'e', 'E'],
-  ['KeyR', 'к', 'К', 'r', 'R'],
-  ['KeyT', 'е', 'Е', 't', 'T'],
-  ['KeyY', 'н', 'Н', 'y', 'Y'],
-  ['KeyU', 'г', 'Г', 'u', 'U'],
-  ['KeyI', 'ш', 'Ш', 'i', 'I'],
-  ['KeyO', 'щ', 'Щ', 'o', 'O'],
-  ['KeyP', 'з', 'З', 'p', 'P'],
-  ['BracketLeft', 'х', 'Х', '[', '{'],
-  ['BracketRight', 'ъ', 'Ъ', ']', '}'],
-  ['Backslash', '&#92;', '/', '&#92;', '|'],
+let ruKeyBoardUp = [
+  ["Ё", "!", '"', "№", ";", "%", ":", "?", "", "(", ")", "", "+", "Backspace"],
+  ["Tab", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ", "/"],
+  ["CapsLock", "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э", "Enter"],
+  ["Shift", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", ".", "&#8593;", "Shift"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "&#8592;", "&#8595;", "&#8594;", "Ctrl"],
 ];
-
-const keyRow3 = [
-  ['CapsLock', 'CapsLock', 'CapsLock', 'CapsLock', 'CapsLock'],
-  ['KeyA', 'ф', 'Ф', 'a', 'A'],
-  ['KeyS', 'ы', 'Ы', 's', 'S'],
-  ['KeyD', 'в', 'В', 'd', 'D'],
-  ['KeyF', 'а', 'А', 'f', 'F'],
-  ['KeyG', 'п', 'П', 'g', 'G'],
-  ['KeyH', 'р', 'Р', 'h', 'H'],
-  ['KeyJ', 'о', 'О', 'j', 'J'],
-  ['KeyK', 'л', 'Л', 'k', 'K'],
-  ['KeyL', 'д', 'Д', 'l', 'L'],
-  ['Semicolon', 'ж', 'Ж', ';', ';'],
-  ['Quote', 'э', 'Э', '\'', '\''],
-  ['Enter', 'Enter', 'Enter', 'Enter', 'Enter'],
+let engKeyBoardDown = [
+  ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
+  ["Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "&#92;"],
+  ["CapsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter"],
+  ["Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "&#8593;", "Shift"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "&#8592;", "&#8595;", "&#8594;", "Ctrl"],
 ];
-
-const keyRow4 = [
-  ['ShiftLeft', 'Shift', 'Shift', 'Shift', 'Shift'],
-  ['KeyZ', 'я', 'Я', 'z', 'Z'],
-  ['KeyX', 'ч', 'Ч', 'x', 'X'],
-  ['KeyC', 'с', 'С', 'c', 'C'],
-  ['KeyV', 'м', 'М', 'v', 'V'],
-  ['KeyB', 'и', 'И', 'b', 'B'],
-  ['KeyN', 'т', 'Т', 'n', 'N'],
-  ['KeyM', 'ь', 'Ь', 'm', 'M'],
-  ['Comma', 'б', 'Б', ',', ','],
-  ['Period', 'ю', 'Ю', '.', '.'],
-  ['Slash', '.', '.', '/', '/'],
-  ['ArrowUp', '&#8593;', '&#8593;', '&#8593;', '&#8593;'],
-  ['ShiftRight', 'Shift', 'Shift', 'Shift', 'Shift'],
+let engKeyBoardUp = [
+  ["~", "!", "@", "#", "$", "%", "^", "&", "", "(", ")", "", "+", "Backspace"],
+  ["Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}", "|"]
+    ["CapsLock", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "Enter"],
+  ["Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "&#8593;", "Shift"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "&#8592;", "&#8595;", "&#8594;", "Ctrl"],
 ];
+let keysDescription = [
+  ["Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Digit-", "Equal=", "Backspace"],
+  ["Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash"],
+  ["CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter"],
+  ["ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight"],
+  ["ControlLeft", "MetaLeft", "AltLeft", "Space", "AltRight", "ArrowLeft", "ArrowDown", "ArrowRight", "ControlRight"],
+]
 
-const keyRow5 = [
-  ['ControlLeft', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl'],
-  ['MetaLeft', 'Win', 'Win', 'Win', 'Win'],
-  ['AltLeft', 'Alt', 'Alt', 'Alt', 'Alt'],
-  ['Space', ' ', ' ', ' ', ' '],
-  ['AltRight', 'Alt', 'Alt', 'Alt', 'Alt'],
-  ['ArrowLeft', '&#8592;', '&#8592;', '&#8592;', '&#8592;'],
-  ['ArrowDown', '&#8595;', '&#8595;', '&#8595;', '&#8595;'],
-  ['ArrowRight', '&#8594;', '&#8594;', '&#8594;', '&#8594;'],
-  ['ControlRight', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl'],
-];
+function createWrapper() {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'wrapper';
+  wrapper.innerHTML = '<input class="area"> <div class="keyBoard"></div>';
+  document.body.prepend(wrapper);
+}
 
-const keyRow = [keyRow1, keyRow2, keyRow3, keyRow4, keyRow5];
-for (let j = 0; j < keyRow.length; j++) {
-  const keyBoard = document.querySelector('.keyBoard');
-  const row = document.createElement('div');
-  row.className = 'row';
-  keyBoard.append(row);
-  for (let i = 0; i < keyRow[j].length; i++) {
-    const key = document.createElement('div');
-    key.className = 'key';
-    key.innerHTML = `${keyRow[j][i][1]}`;
-    row.append(key);
+createWrapper();
+
+function createElements() {
+  for (let j = 0; j < ruKeyBoardDown.length; j++) {
+    const keyBoard = document.querySelector('.keyBoard');
+    const row = document.createElement('div');
+    row.className = 'row';
+    keyBoard.append(row);
+    for (let i = 0; i < ruKeyBoardDown[j].length; i++) {
+      const key = document.createElement('div');
+      key.className = `${keysDescription[j][i]}`;
+      key.innerHTML = `${ruKeyBoardDown[j][i]}`;
+      row.append(key);
+    }
   }
 }
+createElements();
+document.addEventListener("keydown", (e) =>
+{e.preventDefault();
+  const key = document.querySelector(`.${e.code}`);
+key.style.backgroundColor = "red";
+key.style.transform = "translateY(4px)";
+});
+document.addEventListener("keyup", (e) =>
+{e.preventDefault();
+  const key = document.querySelector(`.${e.code}`);
+  key.style.backgroundColor = "black";
+  key.style.transform = "translateY(0px)";
+});
