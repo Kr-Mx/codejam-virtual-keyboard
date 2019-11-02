@@ -37,7 +37,7 @@ let keysDescription = [
 function createWrapper() {
   const wrapper = document.createElement('div');
   wrapper.className = 'wrapper';
-  wrapper.innerHTML = '<input class="area"> <div class="keyBoard"></div>';
+  wrapper.innerHTML = '<textarea class="area" wrap="soft"></textarea> <div class="keyBoard"></div>';
   document.body.prepend(wrapper);
 }
 
@@ -51,22 +51,38 @@ function createElements() {
     keyBoard.append(row);
     for (let i = 0; i < ruKeyBoardDown[j].length; i++) {
       const key = document.createElement('div');
-      key.className = `${keysDescription[j][i]}`;
+      key.id = `${keysDescription[j][i]}`;
+      key.className = 'key';
       key.innerHTML = `${ruKeyBoardDown[j][i]}`;
       row.append(key);
     }
   }
 }
 createElements();
-document.addEventListener("keydown", (e) =>
-{e.preventDefault();
-  const key = document.querySelector(`.${e.code}`);
-key.style.backgroundColor = "red";
-key.style.transform = "translateY(4px)";
-});
-document.addEventListener("keyup", (e) =>
-{e.preventDefault();
-  const key = document.querySelector(`.${e.code}`);
+document.addEventListener("keydown", writeText);
+document.addEventListener("keyup", afterWriteText);
+document.addEventListener("click", click);
+function writeText(e){
+  e.preventDefault();
+  const input = document.querySelector('.area');
+  const key = document.querySelector(`#${e.code}`);
+  input.value += key.innerText;
+  key.style.backgroundColor = "red";
+  key.style.transform = "translateY(4px)";
+}
+function afterWriteText (e){
+  e.preventDefault();
+  const key = document.querySelector(`#${e.code}`);
   key.style.backgroundColor = "black";
-  key.style.transform = "translateY(0px)";
-});
+  key.style.transform = "translateY(0px)";}
+
+function click(e){
+  e.preventDefault();
+  const input = document.querySelector('.area');
+  let target = e.target;
+  if (target.className === 'key'){
+    input.value += `${e.target.innerText}`;
+    key.style.backgroundColor = "red";
+    key.style.transform = "translateY(4px)";}
+
+}
