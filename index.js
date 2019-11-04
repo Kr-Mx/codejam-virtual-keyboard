@@ -6,33 +6,40 @@ const ruKeyBoardDown = [
   ['Ctrl', 'Win', 'Alt', ' ', 'Alt', '&#8592;', '&#8595;', '&#8594;', 'Ctrl'],
 ];
 const ruKeyBoardUp = [
-  ['Ё', '!', '"', "№", ";", "%", ":", "?", "", "(", ")", "", "+", "Backspace"],
-  ["Tab", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ", "/"],
-  ["CapsLock", "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э", "Enter"],
-  ["Shift", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", ".", "&#8593;", "Shift"],
-  ["Ctrl", "Win", "Alt", " ", "Alt", "&#8592;", "&#8595;", "&#8594;", "Ctrl"],
+  ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace'],
+  ['Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '/'],
+  ['CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter'],
+  ['Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', '&#8593;', 'Shift'],
+  ['Ctrl', 'Win', 'Alt', ' ', 'Alt', '&#8592;', '&#8595;', '&#8594;', 'Ctrl'],
 ];
 const engKeyBoardDown = [
-  ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
-  ["Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "&#92;"],
-  ["CapsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter"],
-  ["Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "&#8593;", "Shift"],
-  ["Ctrl", "Win", "Alt", " ", "Alt", "&#8592;", "&#8595;", "&#8594;", "Ctrl"],
+  ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'],
+  ['Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '&#92;'],
+  ['CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '&#8242;', 'Enter'],
+  ['Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '&#8593;', 'Shift'],
+  ['Ctrl', 'Win', 'Alt', ' ', 'Alt', '&#8592;', '&#8595;', '&#8594;', 'Ctrl'],
 ];
 const engKeyBoardUp = [
-  ["~", "!", "@", "#", "$", "%", "^", "&", "", "(", ")", "", "+", "Backspace"],
-  ["Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}", "|"]
-    ["CapsLock", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "Enter"],
-  ["Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "&#8593;", "Shift"],
-  ["Ctrl", "Win", "Alt", " ", "Alt", "&#8592;", "&#8595;", "&#8594;", "Ctrl"],
+  ['~', '!', '@', '#', '$', '%', '^', '&', '', '(', ')', '', '+', 'Backspace'],
+  ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|'],
+  ['CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '&#8242;', "Enter"],
+  ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '&#8593;', 'Shift'],
+  ['Ctrl', 'Win', 'Alt', ' ', 'Alt', '&#8592;', '&#8595;', '&#8594;', 'Ctrl'],
 ];
 const keysDescription = [
   ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
-  ["Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash"],
-  ["CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter"],
-  ["ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight"],
-  ['ControlLeft', "MetaLeft", "AltLeft", "Space", "AltRight", "ArrowLeft", "ArrowDown", "ArrowRight", "ControlRight"],
+  ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash'],
+  ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
+  ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
+  ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight'],
 ]
+
+function setCaretPosition(ctrl, pos) {
+  if (ctrl.setSelectionRange) {
+    ctrl.focus();
+    ctrl.setSelectionRange(pos, pos);
+  }
+}
 
 function createWrapper() {
   const wrapper = document.createElement('div');
@@ -43,8 +50,9 @@ function createWrapper() {
 
 createWrapper();
 
+
 function createElements() {
-  for (let j = 0; j < ruKeyBoardDown.length; j++) {
+  for (let j = 0; j < keysDescription.length; j++) {
     const keyBoard = document.querySelector('.keyBoard');
     const row = document.createElement('div');
     row.className = 'row';
@@ -53,12 +61,11 @@ function createElements() {
       const key = document.createElement('div');
       key.id = `${keysDescription[j][i]}`;
       key.className = 'key';
-      key.innerHTML = `${ruKeyBoardDown[j][i]}`;
+      key.innerHTML = `<span class="ruDown active">${ruKeyBoardDown[j][i]}</span> <span class="ruUp passive">${ruKeyBoardUp[j][i]}</span> <span class="engDown passive">${engKeyBoardDown[j][i]}</span> <span class="engUp passive">${engKeyBoardUp[j][i]}</span>`
       row.append(key);
     }
   }
 }
-
 
 createElements();
 document.addEventListener('keydown', writeText);
@@ -72,12 +79,10 @@ function writeText(e) {
   input.focus();
   key.style.backgroundColor = 'red';
   key.style.transform = 'translateY(4px)';
-  function setCaretPosition(ctrl, pos) {
-    if (ctrl.setSelectionRange) {
-      ctrl.focus();
-      ctrl.setSelectionRange(pos, pos);
-    }
-  }
+  const ruUp = document.querySelectorAll('.ruUp');
+  const ruDown = document.querySelectorAll('.ruDown');
+  const engUp = document.querySelectorAll('.engUp');
+  const engDown = document.querySelectorAll('.engDown');
   switch (key.id) {
     case ('Tab'):
       input.value += '\t';
@@ -92,10 +97,10 @@ function writeText(e) {
       input.value = input.value.slice(0, input.value.length - 1);
       break;
     case ('ArrowLeft'):
-      setCaretPosition(input, input.value.length-1);
+      setCaretPosition(input, input.value.length - 1);
       break;
     case ('ArrowRight'):
-      setCaretPosition(input, input.value.length+1);
+      setCaretPosition(input, input.value.length + 1);
       break;
     case ('ArrowDown'):
       setCaretPosition(input, 0);
@@ -104,6 +109,15 @@ function writeText(e) {
       setCaretPosition(input, input.value.length);
       break;
     case ('CapsLock'):
+      ruDown.forEach((item) => {
+        item.classList.toggle("active");
+        item.classList.toggle("passive");
+      });
+      ruUp.forEach((item) => {
+        item.classList.toggle("passive");
+        item.classList.toggle("active");
+      });
+      break;
     default:
       input.value += key.innerText;
   }
