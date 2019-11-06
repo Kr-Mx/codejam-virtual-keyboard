@@ -127,15 +127,15 @@ span {
   animation-duration: 0.5s;
   animation-name: changeColors;
 }
+
 @keyframes changeColors {
   from {
     background-color: black;
     transform: translateY(0);
   }
+
   to {
     background-color: red;
     transform: translateY(4px);
   }
 }
-
-/*# sourceMappingURL=style.css.map */
