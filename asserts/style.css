@@ -1,0 +1,141 @@
+.wrapper {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.area {
+  width: 500px;
+  height: 200px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 70px auto;
+  border-radius: 20px;
+  border: black solid 20px;
+  background-color: #000082;
+  color: white;
+  font-family: "Consolas", "Arial", sans-serif;
+  box-shadow: 0 0 50px 50px rgba(0, 0, 0, 0.5);
+  resize: none;
+  outline: none;
+  overflow: visible;
+}
+
+.keyBoard {
+  width: 750px;
+  height: 260px;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: black solid 5px;
+  box-shadow: 0 18px 20px 0 rgba(0, 0, 0, 0.5);
+  background: white;
+}
+
+.cactus {
+  z-index: -1;
+  position: absolute;
+  display: flex;
+  width: 20%;
+  height: 20%;
+  bottom: 0;
+  top: 506px;
+  right: 0;
+  left: 166px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  justify-content: center;
+}
+
+.row:first-child {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr) 1.75fr;
+}
+
+.row:nth-child(2) {
+  display: grid;
+  grid-template-columns: 1.25fr repeat(12, 1fr) 1.25fr;
+}
+
+.row:nth-child(3) {
+  display: grid;
+  grid-template-columns: 1.75fr repeat(11, 1fr) 1.75fr;
+}
+
+.row:nth-child(4) {
+  display: grid;
+  grid-template-columns: 1.75fr repeat(11, 1fr) 1.75fr;
+}
+
+.row:last-child {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 8fr repeat(5, 1fr);
+}
+
+.key {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 5px;
+  height: 40px;
+  font-family: "Arial", sans-serif;
+  font-size: 15px;
+  background-color: black;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0 9px #999999;
+  cursor: pointer;
+}
+
+.on {
+  display: flex;
+}
+
+.passive {
+  display: none;
+}
+
+.off {
+  display: none;
+}
+
+span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+}
+
+.signal {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: white;
+  border-radius: 50%;
+  top: 500px;
+  left: 470px;
+  bottom: 0;
+  right: 0;
+}
+
+.key:active {
+  animation-duration: 0.5s;
+  animation-name: changeColors;
+}
+@keyframes changeColors {
+  from {
+    background-color: black;
+    transform: translateY(0);
+  }
+  to {
+    background-color: red;
+    transform: translateY(4px);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

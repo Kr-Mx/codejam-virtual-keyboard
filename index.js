@@ -1,3 +1,12 @@
+function createProject() {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'wrapper';
+  wrapper.innerHTML = '<textarea class="area" wrap="soft"></textarea> <div class="keyBoard"></div> <img class="cactus" src="./asserts/cactus.svg" alt="cactus-image"> <div class="signal"></div>';
+  document.body.prepend(wrapper);
+}
+
+createProject();
+const storage = window.localStorage;
 const ruKeyBoardDown = [
   ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'],
   ['Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '&#92;'],
@@ -22,7 +31,7 @@ const engKeyBoardDown = [
 const engKeyBoardUp = [
   ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace'],
   ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|'],
-  ['CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '&#8242;', "Enter"],
+  ['CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '&#8242;', 'Enter'],
   ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '&#8593;', 'Shift'],
   ['Ctrl', 'Win', 'Alt', ' ', 'Alt', '&#8592;', '&#8595;', '&#8594;', 'Ctrl'],
 ];
@@ -33,57 +42,62 @@ const keysDescription = [
   ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
   ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight'],
 ];
-
-function createWrapper() {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'wrapper';
-  wrapper.innerHTML = '<textarea class="area" wrap="soft"></textarea> <div class="keyBoard"></div>';
-  document.body.prepend(wrapper);
-}
-
-createWrapper();
+const cactus = document.querySelector('.cactus');
+const input = document.querySelector('.area');
+const signal = document.querySelector('.signal');
 
 function createElements() {
-  for (let j = 0; j < keysDescription.length; j++) {
+  for (let j = 0; j < keysDescription.length; j += 1) {
     const keyBoard = document.querySelector('.keyBoard');
     const row = document.createElement('div');
     row.className = 'row';
     keyBoard.append(row);
-    for (let i = 0; i < ruKeyBoardDown[j].length; i++) {
+    for (let i = 0; i < ruKeyBoardDown[j].length; i += 1) {
       const key = document.createElement('div');
       key.id = `${keysDescription[j][i]}`;
       key.className = 'key';
-      key.innerHTML = `<div class="ru on">
+      if (storage.getItem('lang')) {
+        key.innerHTML = `<div class="ru on">
 <span class="down active">${ruKeyBoardDown[j][i]}</span>
 <span class="up passive">${ruKeyBoardUp[j][i]}</span></div> 
 <div class="en off">
 <span class="down active">${engKeyBoardDown[j][i]}</span>
 <span class="up passive">${engKeyBoardUp[j][i]}</span>
 </div>`;
-      row.append(key);
+        row.append(key);
+      } else {
+        key.innerHTML = `<div class="ru off">
+<span class="down active">${ruKeyBoardDown[j][i]}</span>
+<span class="up passive">${ruKeyBoardUp[j][i]}</span></div> 
+<div class="en on">
+<span class="down active">${engKeyBoardDown[j][i]}</span>
+<span class="up passive">${engKeyBoardUp[j][i]}</span>
+</div>`;
+        row.append(key);
+      }
     }
   }
 }
 
 createElements();
-let keyBoardStatus = {
-  en: false,
-  ru: true,
-  up: false,
-  down: true,
-};
+const down = document.querySelectorAll('.down');
+const up = document.querySelectorAll('.up');
+const en = document.querySelectorAll('.en');
+const ru = document.querySelectorAll('.ru');
 
 function setCaretPosition(ctrl, pos) {
   if (ctrl.setSelectionRange) {
     ctrl.focus();
     ctrl.setSelectionRange(pos, pos);
+    ctrl.focus();
   }
-};
-const down = document.querySelectorAll('.down');
-const up = document.querySelectorAll('.up');
-const en = document.querySelectorAll('.en');
-const ru = document.querySelectorAll('.ru');
-const input = document.querySelector('.area');
+}
+
+function changeColor() {
+  if (input.style.borderColor === 'white') {
+    input.style.borderColor = 'black';
+  } else input.setAttribute('style', 'border-color: white;');
+}
 
 function keyDown(e) {
   e.preventDefault();
@@ -105,36 +119,35 @@ function keyDown(e) {
       input.value = input.value.slice(0, input.value.length - 1);
       break;
     case ('ArrowLeft'):
-      setCaretPosition(input, input.value.length - 1);
-      break;
-    case ('ArrowRight'):
-      setCaretPosition(input, input.value.length + 1);
-      break;
-    case ('ArrowDown'):
+    case ('ArrowUp'):
       setCaretPosition(input, 0);
       break;
-    case ('ArrowUp'):
+    case ('ArrowRight'):
+    case ('ArrowDown'):
       setCaretPosition(input, input.value.length);
       break;
     case ('CapsLock'):
       down.forEach((item) => {
-        item.classList.toggle("active");
-        item.classList.toggle("passive");
+        item.classList.toggle('active');
+        item.classList.toggle('passive');
       });
       up.forEach((item) => {
-        item.classList.toggle("passive");
-        item.classList.toggle("active");
+        item.classList.toggle('passive');
+        item.classList.toggle('active');
       });
+      if (signal.style.backgroundColor === 'red') {
+        signal.style.backgroundColor = 'white';
+      } else signal.setAttribute('style', 'background-color: red;');
       break;
     case ('ShiftLeft'):
-      case ('ShiftRight'):
+    case ('ShiftRight'):
       down.forEach((item) => {
-        item.classList.toggle("active");
-        item.classList.toggle("passive");
+        item.classList.toggle('active');
+        item.classList.toggle('passive');
       });
       up.forEach((item) => {
-        item.classList.toggle("passive");
-        item.classList.toggle("active");
+        item.classList.toggle('passive');
+        item.classList.toggle('active');
       });
       break;
     case ('ControlLeft'):
@@ -142,6 +155,12 @@ function keyDown(e) {
     case ('AltRight'):
     case ('AltLeft'):
       input.value += '';
+      changeColor();
+      break;
+    case ('MetaLeft'):
+      if (cactus.style.display === 'none') {
+        cactus.style.display = 'flex';
+      } else cactus.setAttribute('style', 'display: none;');
       break;
     default:
       input.value += key.innerText;
@@ -153,81 +172,132 @@ function keyUp(e) {
   const key = document.querySelector(`#${e.code}`);
   key.style.backgroundColor = 'black';
   key.style.transform = 'translateY(0px)';
-  if (key.id === 'ShiftLeft' || key.id === 'ShiftRight') {
-    down.forEach((item) => {
-      item.classList.toggle("passive");
-      item.classList.toggle("active");
-    });
-    up.forEach((item) => {
-      item.classList.toggle("active");
-      item.classList.toggle("passive");
-    });
-  }
-}
-
-function keyPress(e) {
-  e.preventDefault();
-  const key = document.querySelector(`#${e.code}`);
-  key.style.backgroundColor = 'black';
-  key.style.transform = 'translateY(0px)';
-  if (key.id === 'ShiftLeft' || key.id === 'ShiftRight') {
-    down.forEach((item) => {
-      item.classList.remove("passive");
-      item.classList.add("active");
-    });
-    up.forEach((item) => {
-      item.classList.remove("active");
-      item.classList.add("passive");
-    });
+  switch (key.id) {
+    case ('ShiftLeft'):
+    case ('ShiftRight'):
+      down.forEach((item) => {
+        item.classList.toggle('passive');
+        item.classList.toggle('active');
+      });
+      up.forEach((item) => {
+        item.classList.toggle('active');
+        item.classList.toggle('passive');
+      });
+      key.style.backgroundColor = 'black';
+      break;
+    default:
+      key.style.backgroundColor = 'black';
   }
 }
 
 function click(e) {
   e.preventDefault();
-  const input = document.querySelector('.area');
-  const target = e.target;
-  if (target.className === 'key') {
-    input.value += `${e.target.innerText}`;
-    key.style.backgroundColor = 'red';
-    key.style.transform = 'translateY(4px)';
+  input.focus();
+  const { target } = e;
+  if (target.className === 'key'
+    || target.className === 'down active'
+    || target.className === 'ru on'
+    || target.className === 'up active'
+    || target.className === 'en on') {
+    if (e.target.innerHTML === 'Tab' || e.target.id === 'Tab') {
+      input.value += '\t';
+    } else if (e.target.innerHTML === 'Enter' || e.target.id === 'Enter') {
+      input.value += '\n';
+    } else if (e.target.innerHTML === 'Space' || e.target.id === 'Space') {
+      input.value += ' ';
+    } else if (e.target.innerHTML === 'Backspace' || e.target.id === 'Backspace') {
+      input.value = input.value.slice(0, input.value.length - 1);
+    } else if (e.target.innerHTML === '←'
+      || e.target.innerHTML === '↑'
+      || e.target.id === 'ArrowLeft'
+      || e.target.id === 'ArrowUp') {
+      setCaretPosition(input, 0);
+    } else if (e.target.innerHTML === '→'
+      || e.target.innerHTML === '↓'
+      || e.target.id === 'ArrowRight'
+      || e.target.id === 'ArrowDown') {
+      setCaretPosition(input, input.value.length);
+    } else if (e.target.innerHTML === 'CapsLock' || e.target.id === 'CapsLock') {
+      down.forEach((item) => {
+        item.classList.toggle('active');
+        item.classList.toggle('passive');
+      });
+      up.forEach((item) => {
+        item.classList.toggle('passive');
+        item.classList.toggle('active');
+      });
+      if (signal.style.backgroundColor === 'red') {
+        signal.style.backgroundColor = 'yellow';
+      } else signal.setAttribute('style', 'background-color: red;');
+    } else if (e.target.innerHTML === 'Shift' || e.target.innerHTML === 'Shift'
+      || e.target.id === 'ShiftLeft' || e.target.id === 'ShiftRight') {
+      down.forEach((item) => {
+        item.classList.toggle('active');
+        item.classList.toggle('passive');
+      });
+      up.forEach((item) => {
+        item.classList.toggle('passive');
+        item.classList.toggle('active');
+      });
+    } else if (e.target.id === 'ControlLeft'
+      || e.target.id === 'ControlRight'
+      || e.target.id === 'AltRight'
+      || e.target.id === 'AltLeft'
+      || e.target.innerHTML === 'Ctrl'
+      || e.target.innerHTML === 'Alt') {
+      input.value += '';
+      changeColor();
+    } else if (e.target.innerHTML === 'Win' || e.target.id === 'MetaLeft') {
+      if (cactus.style.display === 'none') {
+        cactus.style.display = 'flex';
+      } else cactus.setAttribute('style', 'display: none;');
+    } else input.value += `${e.target.innerText}`;
   }
 }
 
 
-function runOnKeys(func, ...codes) {
-  let pressed = new Set();
-  document.addEventListener('keydown', function (event) {
+function switchLanguage(func, ...codes) {
+  const pressed = new Set();
+  document.addEventListener('keydown', (event) => {
     pressed.add(event.code);
-    for (let code of codes) {
-      if (!pressed.has(code)) {
+    for (let i = 0; i < pressed.size; i += 1) {
+      if (!pressed.has(codes[0]) || !pressed.has(codes[1])) {
         return;
       }
     }
     pressed.clear();
     func();
+    if (Object.keys(storage).length === 0) {
+      storage.setItem('lang', 'lang');
+    } else storage.clear();
   });
-
-  document.addEventListener('keyup', function (event) {
+  document.addEventListener('keyup', (event) => {
     pressed.delete(event.code);
   });
-
 }
 
-runOnKeys(
-  () => {
-    en.forEach((item) => {
-      item.classList.toggle("off");
-      item.classList.toggle("on");
-    });
-    ru.forEach((item) => {
-      item.classList.toggle("on");
-      item.classList.toggle("off");
-    })
-  }, 'ShiftLeft',
-  'ControlLeft');
+switchLanguage(() => {
+  en.forEach((item) => {
+    item.classList.toggle('off');
+    item.classList.toggle('on');
+  });
+  ru.forEach((item) => {
+    item.classList.toggle('on');
+    item.classList.toggle('off');
+  });
+}, 'ShiftLeft', 'ControlLeft');
+
+switchLanguage(() => {
+  en.forEach((item) => {
+    item.classList.toggle('off');
+    item.classList.toggle('on');
+  });
+  ru.forEach((item) => {
+    item.classList.toggle('on');
+    item.classList.toggle('off');
+  });
+}, 'ShiftRight', 'ControlRight');
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
-document.addEventListener('keypress', keyPress);
 document.addEventListener('click', click);
-
