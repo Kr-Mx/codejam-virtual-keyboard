@@ -95,6 +95,14 @@
   display: flex;
 }
 
+.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+}
+
 .passive {
   display: none;
 }
@@ -103,13 +111,6 @@
   display: none;
 }
 
-span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  height: auto;
-}
 
 .signal {
   position: absolute;
@@ -118,7 +119,7 @@ span {
   background-color: white;
   border-radius: 50%;
   top: 500px;
-  left: 470px;
+  left: 429px;
   bottom: 0;
   right: 0;
 }
@@ -138,4 +139,33 @@ span {
     background-color: red;
     transform: translateY(4px);
   }
+}
+
+.black {
+  border: black solid 20px;
+}
+
+.white {
+  border: white solid 20px;
+}
+
+.keyDown {
+  background-color: red;
+  transform: translateY(4px);
+}
+
+.redSignal {
+  background-color: red;
+}
+
+.whiteSignal {
+  background-color: white;
+}
+
+.cactusView {
+  display: flex;
+}
+
+.cactusHide {
+  display: none;
 }

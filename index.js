@@ -45,13 +45,14 @@ const keysDescription = [
 const cactus = document.querySelector('.cactus');
 const input = document.querySelector('.area');
 const signal = document.querySelector('.signal');
+const keyBoard = document.querySelector('.keyBoard');
+const fragment = document.createDocumentFragment();
 
 function createElements() {
   for (let j = 0; j < keysDescription.length; j += 1) {
-    const keyBoard = document.querySelector('.keyBoard');
     const row = document.createElement('div');
     row.className = 'row';
-    keyBoard.append(row);
+    fragment.append(row);
     for (let i = 0; i < ruKeyBoardDown[j].length; i += 1) {
       const key = document.createElement('div');
       key.id = `${keysDescription[j][i]}`;
@@ -64,7 +65,6 @@ function createElements() {
 <span class="down active">${engKeyBoardDown[j][i]}</span>
 <span class="up passive">${engKeyBoardUp[j][i]}</span>
 </div>`;
-        row.append(key);
       } else {
         key.innerHTML = `<div class="ru off">
 <span class="down active">${ruKeyBoardDown[j][i]}</span>
@@ -73,10 +73,11 @@ function createElements() {
 <span class="down active">${engKeyBoardDown[j][i]}</span>
 <span class="up passive">${engKeyBoardUp[j][i]}</span>
 </div>`;
-        row.append(key);
       }
+      row.append(key);
     }
   }
+  keyBoard.append(fragment);
 }
 
 createElements();
@@ -87,24 +88,26 @@ const ru = document.querySelectorAll('.ru');
 
 function setCaretPosition(ctrl, pos) {
   if (ctrl.setSelectionRange) {
-    ctrl.focus();
     ctrl.setSelectionRange(pos, pos);
     ctrl.focus();
   }
 }
 
 function changeColor() {
-  if (input.style.borderColor === 'white') {
-    input.style.borderColor = 'black';
-  } else input.setAttribute('style', 'border-color: white;');
+  if (Array.from(input.classList).includes('white')) {
+    input.classList.remove('white');
+    input.classList.add('black');
+  } else {
+    input.classList.remove('black');
+    input.classList.add('white');
+  }
 }
 
 function keyDown(e) {
   e.preventDefault();
   const key = document.querySelector(`#${e.code}`);
   input.focus();
-  key.style.backgroundColor = 'red';
-  key.style.transform = 'translateY(4px)';
+  key.classList.add('keyDown');
   switch (key.id) {
     case ('Tab'):
       input.value += '\t';
@@ -135,9 +138,13 @@ function keyDown(e) {
         item.classList.toggle('passive');
         item.classList.toggle('active');
       });
-      if (signal.style.backgroundColor === 'red') {
-        signal.style.backgroundColor = 'white';
-      } else signal.setAttribute('style', 'background-color: red;');
+      if (Array.from(signal.classList).includes('redSignal')) {
+        signal.classList.remove('redSignal');
+        signal.classList.add('whiteSignal');
+      } else {
+        signal.classList.remove('whiteSignal');
+        signal.classList.add('redSignal');
+      }
       break;
     case ('ShiftLeft'):
     case ('ShiftRight'):
@@ -158,9 +165,13 @@ function keyDown(e) {
       changeColor();
       break;
     case ('MetaLeft'):
-      if (cactus.style.display === 'none') {
-        cactus.style.display = 'flex';
-      } else cactus.setAttribute('style', 'display: none;');
+      if (Array.from(cactus.classList).includes('cactusView')) {
+        cactus.classList.remove('cactusView');
+        cactus.classList.add('cactusHide');
+      } else {
+        cactus.classList.remove('cactusHide');
+        cactus.classList.add('cactusView');
+      }
       break;
     default:
       input.value += key.innerText;
@@ -194,11 +205,7 @@ function click(e) {
   e.preventDefault();
   input.focus();
   const { target } = e;
-  if (target.className === 'key'
-    || target.className === 'down active'
-    || target.className === 'ru on'
-    || target.className === 'up active'
-    || target.className === 'en on') {
+  if (Array.from(target.classList).includes('active') || target.className === 'key') {
     if (e.target.innerHTML === 'Tab' || e.target.id === 'Tab') {
       input.value += '\t';
     } else if (e.target.innerHTML === 'Enter' || e.target.id === 'Enter') {
@@ -226,9 +233,13 @@ function click(e) {
         item.classList.toggle('passive');
         item.classList.toggle('active');
       });
-      if (signal.style.backgroundColor === 'red') {
-        signal.style.backgroundColor = 'yellow';
-      } else signal.setAttribute('style', 'background-color: red;');
+      if (Array.from(signal.classList).includes('redSignal')) {
+        signal.classList.remove('redSignal');
+        signal.classList.add('whiteSignal');
+      } else {
+        signal.classList.remove('whiteSignal');
+        signal.classList.add('redSignal');
+      }
     } else if (e.target.innerHTML === 'Shift' || e.target.innerHTML === 'Shift'
       || e.target.id === 'ShiftLeft' || e.target.id === 'ShiftRight') {
       down.forEach((item) => {
@@ -248,9 +259,13 @@ function click(e) {
       input.value += '';
       changeColor();
     } else if (e.target.innerHTML === 'Win' || e.target.id === 'MetaLeft') {
-      if (cactus.style.display === 'none') {
-        cactus.style.display = 'flex';
-      } else cactus.setAttribute('style', 'display: none;');
+      if (Array.from(cactus.classList).includes('cactusView')) {
+        cactus.classList.remove('cactusView');
+        cactus.classList.add('cactusHide');
+      } else {
+        cactus.classList.remove('cactusHide');
+        cactus.classList.add('cactusView');
+      }
     } else input.value += `${e.target.innerText}`;
   }
 }
@@ -300,4 +315,9 @@ switchLanguage(() => {
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
-document.addEventListener('click', click);
+keyBoard.addEventListener('click', click, true);
+window.onbeforeunload = function clear() {
+  document.removeEventListener('keydown', keyDown);
+  document.removeEventListener('keyup', keyUp);
+  keyBoard.removeEventListener('click', click, true);
+};
